@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import {render} from "react-dom"
 import './index.css';
 import App from './App';
@@ -10,7 +9,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import {HashRouter, Route, Routes} from "react-router-dom";
 import LoginScreen from "./Screens/Login/LoginScreen";
-import CsvScreen from "./Screens/Csv/CsvScreen";
+import XlsxScreen from "./Screens/Xlsx/XlsxScreen";
 
 const rootElement = document.getElementById("root");
 
@@ -19,7 +18,7 @@ render(
         <Routes>
             <Route path={"/"} element={<App/>}/>
             <Route path={"/login"} element={<LoginScreen/>}/>
-            <Route path={"/csv"} element={<CsvScreen/>}/>
+            <Route path={"/xlsx"} element={<XlsxScreen/>}/>
         </Routes>
     </HashRouter>,
     rootElement
