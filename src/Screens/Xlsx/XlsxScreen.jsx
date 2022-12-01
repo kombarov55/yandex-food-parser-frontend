@@ -26,7 +26,7 @@ export default ({}) => {
             search: ""
         },
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2))
+            axios.get(Links.foodRequest(values.search), values).then(rs => alert(rs.data))
         }
     })
 
