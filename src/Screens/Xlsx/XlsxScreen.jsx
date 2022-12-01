@@ -16,7 +16,6 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {useFormik} from "formik";
 import axios from "axios";
 import Links from "../../Links";
-import {get} from "../../HttpRequests";
 
 export default ({}) => {
     const theme = createTheme()
@@ -29,6 +28,7 @@ export default ({}) => {
             axios.get(Links.foodRequest(values.search), values).then(rs => {
                 alert("Запрос принят в обработку")
                 refreshList()
+                values.search = ""
             })
         }
     })
@@ -80,7 +80,8 @@ export default ({}) => {
                     <TableRow>
                         <TableCell>id</TableCell>
                         <TableCell>Поисковое слово</TableCell>
-                        <TableCell>Статус</TableCell>
+                        <TableCell>Статус запроса</TableCell>
+                        <TableCell>Статус работы</TableCell>
                         <TableCell>Дата начала</TableCell>
                         <TableCell>Дата окончания</TableCell>
                         <TableCell>Ссылка на скачивание</TableCell>
@@ -92,6 +93,7 @@ export default ({}) => {
                             <TableCell>{vo.id}</TableCell>
                             <TableCell>{vo.food_name}</TableCell>
                             <TableCell>{vo.status}</TableCell>
+                            <TableCell>{vo.what_is_doing}</TableCell>
                             <TableCell>{vo.start_date}</TableCell>
                             <TableCell>{vo.end_date}</TableCell>
                             <TableCell><a href={Links.downloadLink(vo.filename)}>{vo.filename}</a></TableCell>
