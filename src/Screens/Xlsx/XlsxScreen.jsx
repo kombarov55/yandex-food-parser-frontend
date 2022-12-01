@@ -26,15 +26,20 @@ export default ({}) => {
             search: ""
         },
         onSubmit: values => {
-            axios.get(Links.foodRequest(values.search), values).then(rs => alert(rs.data))
+            axios.get(Links.foodRequest(values.search), values).then(rs => {
+                alert("Запрос принят в обработку")
+                refreshList()
+            })
         }
     })
 
     const [xlsxRequests, setXlsxRequests] = useState([])
 
-    useEffect(() => {
+    function refreshList() {
         axios.get(Links.xlsxRequests).then(rs => setXlsxRequests(rs.data))
-    }, [])
+    }
+
+    useEffect(() => refreshList(), [])
 
     return <ThemeProvider theme={theme}>
         <Container component={"main"} maxWidth={"xs"}>
@@ -67,6 +72,9 @@ export default ({}) => {
             <Typography component="h2" variant="h6" color="primary" gutterBottom>
                 Запросы
             </Typography>
+            <Button variant={"contained"} fullWidth onClick={() => refreshList()}>
+                Обновить
+            </Button>
             <Table size={"small"}>
                 <TableHead>
                     <TableRow>
