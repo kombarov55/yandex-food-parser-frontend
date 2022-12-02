@@ -36,7 +36,7 @@ export default ({}) => {
                 if (rs.data.success) {
                     const email = <rs className="data email"></rs>
                     document.cookie = `auth=${email}`
-                    navigate("/xlsx")
+                    navigate("/search-food")
                 } else {
                     setIsAuthFailed(true)
                 }
