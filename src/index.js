@@ -18,6 +18,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import SearchFoodScreen from "./Screens/SearchFood/SearchFoodScreen";
+import Dashboard from "./ExampleProjects/Dashboard/Dashboard";
 
 const rootElement = document.getElementById("root");
 
@@ -31,6 +32,7 @@ render(
             <Route path={"/register"} element={<RegisterScreen/>}/>
             <Route path={"/xlsx"} element={<XlsxScreen/>}/>
             <Route path={"/search-food"} element={<SearchFoodScreen/>}/>
+            <Route path={"/example/dashboard"} element={<Dashboard/>}/>
         </Routes>
     </HashRouter>,
     rootElement

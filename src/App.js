@@ -1,6 +1,5 @@
 import './App.css';
 import {useEffect} from "react";
-import Cookies from "js-cookie"
 import CookieUtil from "./Util/CookieUtil";
 import {useNavigate} from "react-router-dom";
 
