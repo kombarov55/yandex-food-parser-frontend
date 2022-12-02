@@ -13,6 +13,7 @@ import {useFormik} from "formik";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Links from "../../Links";
+import Link from "@mui/material/Link";
 
 const theme = createTheme();
 
@@ -94,6 +95,13 @@ export default ({}) => {
                             >
                                 Отправить письмо с кодом
                             </Button>
+                            <Grid container>
+                                <Grid item xs>
+                                    <Link href="#/login" variant="body2">
+                                        Вспоминили пароль?
+                                    </Link>
+                                </Grid>
+                            </Grid>
                         </Box>
                     </Box>
                 </Grid>

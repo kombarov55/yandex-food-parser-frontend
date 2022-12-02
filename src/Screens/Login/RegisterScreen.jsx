@@ -15,38 +15,40 @@ import SyncIcon from '@mui/icons-material/Sync';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Links from "../../Links";
+import {useState} from "react";
 
 const theme = createTheme();
 
 export default ({}) => {
     const navigate = useNavigate()
 
+    const [errorMsg, setErrorMsg] = useState()
+
     const formik = useFormik({
         initialValues: {
-            "email": "",
+            "email": null,
             "password": "",
-            "password_repeat": ""
+            "password_repeat": "",
+            "name": ""
         }, onSubmit: (values, {setSubmitting}) => {
             axios.post(Links.register, values).then(rs => {
                 setSubmitting(false)
-                console.log(rs.data)
-                navigate("/login")
+                if (!rs.data.success) {
+                    setErrorMsg(rs.data.error_msg)
+                } else {
+                    navigate("/login")
+                }
             })
 
         }, validate: values => {
             const errors = {}
-
-            if (!values.email) {
-                errors.email = 'Обязательное поле';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+            if (values.name == "") {
+                errors["name"] = "Обязательное поле"
+            } else if (values.email !== null && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Неправильный email адрес';
-            }
-
-            if (values.password != "" && values.password.length < 6) {
+            } else if (values.password != "" && values.password.length < 6) {
                 errors.password = "Пароль слишком короткий"
-            }
-
-            if (values.password_repeat != values.password) {
+            } else if (values.password_repeat != "" && values.password_repeat != values.password) {
                 errors.password_repeat = "Пароли не совпадают"
             }
 
@@ -94,21 +96,31 @@ export default ({}) => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
-                                label={formik.errors["email"] || "Email"}
-                                type={"email"}
-                                name="email"
-                                autoComplete="email"
+                                id="name"
+                                label={"Ваше имя"}
+                                required
+                                name="name"
                                 onChange={formik.handleChange}
-                                error={formik.errors["email"]}
                                 autoFocus
                             />
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
+                                id="email"
+                                label={"Email"}
+                                type={"email"}
+                                name="email"
+                                autoComplete="email"
+                                onChange={formik.handleChange}
+                                error={formik.errors["email"]}
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
                                 name="password"
-                                label={formik.errors["password"] || "Пароль"}
+                                label={"Пароль"}
                                 type="password"
                                 id="password"
                                 error={formik.errors["password"]}
@@ -136,10 +148,15 @@ export default ({}) => {
                             >
                                 {!formik.isSubmitting && "Зарегистрироваться"}
                             </Button>
+                            {errorMsg &&
+                                <Typography align={"center"} sx={{color: "error.main"}} xs>
+                                    {errorMsg}
+                                </Typography>
+                            }
                             <Grid container>
                                 <Grid item>
                                     <Link href="#/login" variant="body2">
-                                        {"Вспомнили пароль?"}
+                                        Назад на страницу входа
                                     </Link>
                                 </Grid>
                             </Grid>

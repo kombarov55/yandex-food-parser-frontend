@@ -34,6 +34,8 @@ export default ({}) => {
                 setSubmitting(false)
                 console.log(rs.data)
                 if (rs.data.result) {
+                    const email = rs.data.result.email
+                    document.cookie = `auth=${email}`
                     navigate("/xlsx")
                 } else {
                     setIsAuthFailed(true)

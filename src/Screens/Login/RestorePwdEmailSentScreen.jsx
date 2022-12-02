@@ -66,9 +66,9 @@ export default ({}) => {
                         <Typography component={"p"}>
                             Письмо с кодом восстановления отправлено на вашу электронную почту
                         </Typography>
-                        <Button href={"#/login"} size={"small"}>
+                        <Link href={"#/login"} variant={"body2"}>
                             Вернуться на страницу входа
-                        </Button>
+                        </Link>
                     </Box>
                 </Grid>
             </Grid>
