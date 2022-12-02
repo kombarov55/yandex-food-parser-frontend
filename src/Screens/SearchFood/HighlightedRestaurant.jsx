@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import {Card, CardContent, CardMedia} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Title from "../../ExampleProjects/Dashboard/Title";
+import Link from "@mui/material/Link";
 
 export default ({title, v}) => {
     return <Paper sx={{p: 2}}>
@@ -13,9 +14,9 @@ export default ({title, v}) => {
                        image={v.src}
             />
             <CardContent>
-                <Typography component="h5" variant="button" color={"primary.main"} onClick={() => alert("click")}>
+                <Link variant="button" color={"primary.main"} href={v.link}>
                     {v.name}
-                </Typography>
+                </Link>
                 <Typography gutterBottom variant="body2" component="div">
                     {v.address}
                 </Typography>
