@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import {Card, CardContent, CardMedia} from "@mui/material";
+import Link from "@mui/material/Link";
 
 export default ({v}) => {
     return <>
@@ -13,9 +14,9 @@ export default ({v}) => {
                 <Typography gutterBottom variant="h5" component="div">
                     {v.price}
                 </Typography>
-                <Typography variant="button" color={"primary.main"} onClick={() => alert("click")}>
+                <Link variant="button" color={"primary.main"} href={v.link}>
                     {v.name}
-                </Typography>
+                </Link>
                 <Typography variant="body2" color="text.secondary">
                     {v.restaurant_name}
                 </Typography>

@@ -266,7 +266,7 @@ function DashboardContent() {
                                 <Tab label={"Результаты по магазинам"} {...a11yProps(1)}/>
                             </Tabs>
                             <TabPanel value={currentTab} index={0}>
-                                <FoodSearchResultsView rs={rsByRestaurant} title={"restaurant"}/>
+                                <FoodSearchResultsView rs={rsByRestaurant}/>
                             </TabPanel>
                             <TabPanel value={currentTab} index={1}>
                                 <FoodSearchResultsView rs={rsByShop}/>

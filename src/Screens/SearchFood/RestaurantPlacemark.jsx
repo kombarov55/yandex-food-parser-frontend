@@ -8,7 +8,7 @@ export default ({v}) => {
                       properties={{
                           balloonContentHeader: v.name,
                           balloonContentBody: `${v.address}<br/>` +
-                              "08:00-20:00<br/>" +
+                              `${v.open_at}-${v.close_at}<br/>` +
                               `Рейтинг: ${v.rating}/5 (${v.rating_count} оценок)`
                       }}
     />
