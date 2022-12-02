@@ -35,6 +35,9 @@ import Links from "../../Links";
 import Avatar from "@mui/material/Avatar";
 import FoodCompilationItem from "./FoodCompilationItem";
 import {BarChart, Bar, Legend, Tooltip, XAxis, YAxis} from "recharts";
+import {Map, Placemark} from "react-yandex-maps";
+import RestaurantPlacemark from "./RestaurantPlacemark";
+import HighlightedRestaurant from "./HighlightedRestaurant";
 
 const drawerWidth = 240;
 
@@ -285,6 +288,16 @@ function DashboardContent() {
                                 <Legend/>
                                 <Bar dataKey="price" fill="#8884d8" name={"Стоимость блюда"} />
                             </BarChart>
+
+                            <Title>Рестораны на карте</Title>
+                            <Map defaultState={{ center: [55.75, 37.57], zoom: 11 }} width={1000} height={500}>
+                                {rs["restaurants"]?.map(v => <RestaurantPlacemark v={v}/>)}
+                            </Map>
+
+                            <Stack direction={"row"} spacing={2}>
+                                <HighlightedRestaurant title={"Лучший ресторан"} v={rs["best_highlighted_restaurant"] || {}}/>
+                                <HighlightedRestaurant title={"Худший ресторан"} v={rs["worst_highlighted_restaurant"] || {}}/>
+                            </Stack>
                         </Stack>
                     </Container>
                 </Box>

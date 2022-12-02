@@ -19,22 +19,25 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import SearchFoodScreen from "./Screens/SearchFood/SearchFoodScreen";
 import Dashboard from "./ExampleProjects/Dashboard/Dashboard";
+import {YMaps} from "react-yandex-maps";
 
 const rootElement = document.getElementById("root");
 
 render(
-    <HashRouter>
-        <Routes>
-            <Route path={"/"} element={<App/>}/>
-            <Route path={"/login"} element={<LoginScreen/>}/>
-            <Route path={"/restore-pwd"} element={<RestorePwdScreen/>}/>
-            <Route path={"/restore-pwd-email-sent"} element={<RestorePwdEmailSentScreen/>}/>
-            <Route path={"/register"} element={<RegisterScreen/>}/>
-            <Route path={"/xlsx"} element={<XlsxScreen/>}/>
-            <Route path={"/search-food"} element={<SearchFoodScreen/>}/>
-            <Route path={"/example/dashboard"} element={<Dashboard/>}/>
-        </Routes>
-    </HashRouter>,
+    <YMaps>
+        <HashRouter>
+            <Routes>
+                <Route path={"/"} element={<App/>}/>
+                <Route path={"/login"} element={<LoginScreen/>}/>
+                <Route path={"/restore-pwd"} element={<RestorePwdScreen/>}/>
+                <Route path={"/restore-pwd-email-sent"} element={<RestorePwdEmailSentScreen/>}/>
+                <Route path={"/register"} element={<RegisterScreen/>}/>
+                <Route path={"/xlsx"} element={<XlsxScreen/>}/>
+                <Route path={"/search-food"} element={<SearchFoodScreen/>}/>
+                <Route path={"/example/dashboard"} element={<Dashboard/>}/>
+            </Routes>
+        </HashRouter>
+    </YMaps>,
     rootElement
 )
 

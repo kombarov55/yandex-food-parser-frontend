@@ -1,5 +1,6 @@
-const rootUrl = "https://novemis.ru:8000"
-// const rootUrl = "http://localhost:8000"
+// const rootUrl = "https://novemis.ru:8000"
+const rootUrl = "http://localhost:8000"
+
 
 export default {
     xlsxRequests: `${rootUrl}/xlsx_requests`,
