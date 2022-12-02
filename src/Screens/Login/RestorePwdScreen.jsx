@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -10,39 +10,34 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useFormik} from "formik";
-import {Button, FormLabel} from "@mui/material";
-import SyncIcon from '@mui/icons-material/Sync';
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Links from "../../Links";
-import {useNavigate} from "react-router-dom";
-import {useState} from "react";
 
 const theme = createTheme();
 
 export default ({}) => {
     const navigate = useNavigate()
 
-    const [isAuthFailed, setIsAuthFailed] = useState(false)
 
     const formik = useFormik({
         initialValues: {
-            "email": "",
-            "password": ""
+            "email": ""
         }, onSubmit: (values, {setSubmitting}) => {
-            axios.post(Links.login, values).then(rs => {
-                setIsAuthFailed(false)
+            axios.get(Links.restorePassword(values.email)).then(rs => {
                 setSubmitting(false)
-                console.log(rs.data)
-                if (rs.data.result) {
-                    navigate("/xlsx")
-                } else {
-                    setIsAuthFailed(true)
-                }
+                navigate("/restore-pwd-email-sent")
             })
+        }, validate: values => {
+            const errors = {}
 
+            if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors["email"] = "Неправильный email"
+            }
+
+            return errors
         }
     })
-
 
     return (
         <ThemeProvider theme={theme}>
@@ -76,7 +71,7 @@ export default ({}) => {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Войти
+                            Восстановление пароля
                         </Typography>
                         <Box component="form" noValidate onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
                             <TextField
@@ -84,49 +79,21 @@ export default ({}) => {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Электронная почта"
+                                label={formik.errors["email"] || "Электронная почта"}
+                                error={formik.errors["email"]}
                                 name="email"
                                 autoComplete="email"
                                 onChange={formik.handleChange}
                                 autoFocus
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Пароль"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                onChange={formik.handleChange}
                             />
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
-                                startIcon={formik.isSubmitting && <SyncIcon/>}
                             >
-                                {!formik.isSubmitting && "Войти"}
+                                Отправить письмо с кодом
                             </Button>
-                            {isAuthFailed &&
-                                <Typography align={"center"} sx={{color: "error.main"}} xs>
-                                    Неправильный логин/пароль
-                                </Typography>
-                            }
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#/restore-pwd" variant="body2">
-                                        Забыли пароль?
-                                    </Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link href="#/register" variant="body2">
-                                        Нет аккаунта? Зарегистрироваться
-                                    </Link>
-                                </Grid>
-                            </Grid>
                         </Box>
                     </Box>
                 </Grid>

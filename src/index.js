@@ -10,6 +10,13 @@ import '@fontsource/roboto/700.css';
 import {HashRouter, Route, Routes} from "react-router-dom";
 import LoginScreen from "./Screens/Login/LoginScreen";
 import XlsxScreen from "./Screens/Xlsx/XlsxScreen";
+import RestorePwdScreen from "./Screens/Login/RestorePwdScreen";
+import RestorePwdEmailSentScreen from "./Screens/Login/RestorePwdEmailSentScreen";
+import RegisterScreen from "./Screens/Login/RegisterScreen";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 const rootElement = document.getElementById("root");
 
@@ -18,6 +25,9 @@ render(
         <Routes>
             <Route path={"/"} element={<App/>}/>
             <Route path={"/login"} element={<LoginScreen/>}/>
+            <Route path={"/restore-pwd"} element={<RestorePwdScreen/>}/>
+            <Route path={"/restore-pwd-email-sent"} element={<RestorePwdEmailSentScreen/>}/>
+            <Route path={"/register"} element={<RegisterScreen/>}/>
             <Route path={"/xlsx"} element={<XlsxScreen/>}/>
         </Routes>
     </HashRouter>,
