@@ -7,5 +7,6 @@ export default {
     downloadLink: filename => `${rootUrl}/static/${filename}`,
     register: `${rootUrl}/account`,
     login: `${rootUrl}/account/login`,
-    restorePassword: email => `${rootUrl}/account/restore_pwd/${email}`
+    restorePassword: email => `${rootUrl}/account/restore_pwd/${email}`,
+    searchFood: foodName => `${rootUrl}/search_food/${foodName}`
 }
