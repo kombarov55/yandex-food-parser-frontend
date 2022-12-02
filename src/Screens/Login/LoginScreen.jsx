@@ -16,6 +16,7 @@ import axios from "axios";
 import Links from "../../Links";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import TestEmail from "../../Util/TestEmail";
 
 const theme = createTheme();
 
@@ -26,22 +27,28 @@ export default ({}) => {
 
     const formik = useFormik({
         initialValues: {
-            "email": "",
-            "password": ""
+            "email": null,
+            "password": null
         }, onSubmit: (values, {setSubmitting}) => {
             axios.post(Links.login, values).then(rs => {
                 setIsAuthFailed(false)
                 setSubmitting(false)
-                console.log(rs.data)
-                if (rs.data.result) {
-                    const email = rs.data.result.email
+                if (rs.data.success) {
+                    const email = <rs className="data email"></rs>
                     document.cookie = `auth=${email}`
                     navigate("/xlsx")
                 } else {
                     setIsAuthFailed(true)
                 }
             })
+        }, validate: (values) => {
+            const errors = {}
 
+            if (values.email != null && TestEmail(values.email)) {
+                errors["email"] = "Неправильный email"
+            }
+
+            return errors
         }
     })
 
@@ -86,7 +93,8 @@ export default ({}) => {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Электронная почта"
+                                label={formik.errors["email"] || "Электронная почта"}
+                                error={formik.errors["email"]}
                                 name="email"
                                 autoComplete="email"
                                 onChange={formik.handleChange}

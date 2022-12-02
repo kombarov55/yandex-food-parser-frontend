@@ -1,14 +1,17 @@
 import './App.css';
 import {useEffect} from "react";
+import Cookies from "js-cookie"
+import CookieUtil from "./Util/CookieUtil";
 
 function App() {
     useEffect(() => {
+
 
     }, [])
 
     return <div>
         <h1>App</h1>
-        <p>{document.cookie}</p>
+        <p>{CookieUtil.get("auth")}</p>
     </div>
 }
 
