@@ -144,10 +144,14 @@ function DashboardContent() {
     const navigate = useNavigate()
 
 
-    const [rs, setRs] = useState({})
+    const [rsByRestaurant, setRsByRestaurant] = useState({})
+    const [rsByShop, setRsByShop] = useState({})
 
     useEffect(() => {
-        axios.get(Links.searchFood("томям")).then(rs => setRs(rs.data))
+        axios.get(Links.searchFood("томям")).then(rs => {
+            setRsByRestaurant(rs.data["by_restaurant"])
+            setRsByShop(rs.data["by_shop"])
+        })
     }, [])
 
 
@@ -251,7 +255,7 @@ function DashboardContent() {
                                 <Stack>
                                     <Title>Самая низкая цена</Title>
                                     <Stack spacing={2} direction={"row"}>
-                                        {rs["lowest_price_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
+                                        {rsByRestaurant["lowest_price_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
                                     </Stack>
                                 </Stack>
                             </Paper>
@@ -261,7 +265,7 @@ function DashboardContent() {
                                 <Stack>
                                     <Title>Самая высокая цена</Title>
                                     <Stack spacing={2} direction={"row"}>
-                                        {rs["highest_price_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
+                                        {rsByRestaurant["highest_price_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
                                     </Stack>
                                 </Stack>
                             </Paper>
@@ -271,7 +275,7 @@ function DashboardContent() {
                                 <Stack>
                                     <Title>Самая большая порция</Title>
                                     <Stack spacing={2} direction={"row"}>
-                                        {rs["lowest_price_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
+                                        {rsByRestaurant["lowest_price_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
                                     </Stack>
                                 </Stack>
                             </Paper>
@@ -281,7 +285,7 @@ function DashboardContent() {
                             </Title>
                             <BarChart width={1000}
                                       height={500}
-                                      data={rs["chart_data"]}>
+                                      data={rsByRestaurant["chart_data"]}>
                                 <XAxis dataKey="shop_name" />
                                 <YAxis dataKey={"price"} />
                                 <Tooltip />
@@ -291,13 +295,21 @@ function DashboardContent() {
 
                             <Title>Рестораны на карте</Title>
                             <Map defaultState={{ center: [55.75, 37.57], zoom: 11 }} width={1000} height={500}>
-                                {rs["restaurants"]?.map(v => <RestaurantPlacemark v={v}/>)}
+                                {rsByRestaurant["restaurants"]?.map(v => <RestaurantPlacemark v={v}/>)}
                             </Map>
 
                             <Stack direction={"row"} spacing={2}>
-                                <HighlightedRestaurant title={"Лучший ресторан"} v={rs["best_highlighted_restaurant"] || {}}/>
-                                <HighlightedRestaurant title={"Худший ресторан"} v={rs["worst_highlighted_restaurant"] || {}}/>
+                                <HighlightedRestaurant title={"Лучший ресторан"} v={rsByRestaurant["best_highlighted_restaurant"] || {}}/>
+                                <HighlightedRestaurant title={"Худший ресторан"} v={rsByRestaurant["worst_highlighted_restaurant"] || {}}/>
                             </Stack>
+
+                            <Paper sx={{p: 2}}>
+                                <Title>ЛУЧШИЙ ВЫБОР</Title>
+                                <Typography variant="h7">Самая низкая цена + самая большая граммовка + самый выский рейтинг с самым большим количеством отзывов</Typography>
+                                <Stack spacing={2} direction={"row"}>
+                                    {rsByRestaurant["best_choice_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
+                                </Stack>
+                            </Paper>
                         </Stack>
                     </Container>
                 </Box>
