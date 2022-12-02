@@ -24,25 +24,5 @@ export default ({v}) => {
                 </Typography>
             </CardContent>
         </Card>
-        {/*
-        <Card variant={"outlined"} sx={{p: 2}}>
-            <Stack spacing={0.5}>
-                <Avatar src={v["src"]}
-                        sx={{width: "8vmax", height: "8vmax"}}
-                        variant={"rounded"}
-                />
-                <Typography component={"h5"} variant={"h4"}>
-                    {v["price"]}
-                </Typography>
-                <Title>{v["restaurant_name"]}</Title>
-                <Typography component={"h5"} variant={"body2"}>
-                    {v["name"]}
-                </Typography>
-                <Typography component={"p"} variant={"body2"}>
-                    {v["weight"]}
-                </Typography>
-            </Stack>
-        </Card>
-        */}
     </>
 }
