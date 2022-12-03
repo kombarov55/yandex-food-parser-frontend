@@ -25,7 +25,7 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import AssessmentIcon from '@mui/icons-material/Assessment';
-import {Button, Grid, Stack, Tab, Tabs, TextField} from "@mui/material";
+import {Button, CircularProgress, Grid, Stack, Tab, Tabs, TextField} from "@mui/material";
 import axios from "axios";
 import Links from "../../Links";
 import FoodSearchResultsView from "./FoodSearchResultsView";
@@ -138,6 +138,8 @@ function DashboardContent() {
     const [rsByRestaurant, setRsByRestaurant] = useState({})
     const [rsByShop, setRsByShop] = useState({})
 
+    const [didRequestSomething, setDidRequestSomething] = useState(false)
+
     const [currentTab, setCurrentTab] = useState(0)
 
     const formik = useFormik({
@@ -149,16 +151,10 @@ function DashboardContent() {
                 setSubmitting(false)
                 setRsByRestaurant(rs.data["by_restaurant"])
                 setRsByShop(rs.data["by_shop"])
+                setDidRequestSomething(true)
             })
         }
     })
-
-    useEffect(() => {
-        axios.get(Links.searchFood("цезарь", 5)).then(rs => {
-            setRsByRestaurant(rs.data["by_restaurant"])
-            setRsByShop(rs.data["by_shop"])
-        })
-    }, [])
 
     function TabPanel(props) {
         const {children, value, index} = props;
@@ -276,30 +272,29 @@ function DashboardContent() {
                         <Stack spacing={2}>
                             <form onSubmit={formik.handleSubmit}>
                                 <Stack spacing={1}>
-                                    <TextField label={"Поиск"} name={"search"} onChange={formik.handleChange}/>
-                                    <TextField label={"Макс. результатов по категории"} name={"amount"} onChange={formik.handleChange}/>
-                                    <Button type={"submit"} variant={"contained"}>Поиск</Button>
+                                    <TextField autoFocus label={"Поиск"} name={"search"} onChange={formik.handleChange}/>
+                                    <Button type={"submit"} variant={"outlined"}>
+                                        {formik.isSubmitting ?
+                                            <CircularProgress/> : "Поиск"
+                                        }
+                                    </Button>
+
                                 </Stack>
                             </form>
-                            <Grid container>
-                                <Grid item xs={10}>
-
-                                </Grid>
-                                <Grid item xs={2}>
-
-                                </Grid>
-                            </Grid>
-
-                            <Tabs value={currentTab} onChange={(e, i) => setCurrentTab(i)}>
-                                <Tab label={"Результаты по ресторанам"} {...a11yProps(0)}/>
-                                <Tab label={"Результаты по магазинам"} {...a11yProps(1)}/>
-                            </Tabs>
-                            <TabPanel value={currentTab} index={0}>
-                                <FoodSearchResultsView rs={rsByRestaurant}/>
-                            </TabPanel>
-                            <TabPanel value={currentTab} index={1}>
-                                <FoodSearchResultsView rs={rsByShop}/>
-                            </TabPanel>
+                            {didRequestSomething &&
+                                <>
+                                    <Tabs value={currentTab} onChange={(e, i) => setCurrentTab(i)}>
+                                        <Tab label={"Результаты по ресторанам"} {...a11yProps(0)}/>
+                                        <Tab label={"Результаты по магазинам"} {...a11yProps(1)}/>
+                                    </Tabs>
+                                    <TabPanel value={currentTab} index={0}>
+                                        <FoodSearchResultsView rs={rsByRestaurant}/>
+                                    </TabPanel>
+                                    <TabPanel value={currentTab} index={1}>
+                                        <FoodSearchResultsView rs={rsByShop}/>
+                                    </TabPanel>
+                                </>
+                            }
                         </Stack>
                     </Container>
                 </Box>

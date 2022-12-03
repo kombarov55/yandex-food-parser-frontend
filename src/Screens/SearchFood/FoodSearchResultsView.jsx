@@ -22,7 +22,7 @@ export default ({rs}) => {
         >
             <Title>Средняя цена</Title>
             <Typography component="p" variant="h4">
-                {Math.trunc(rs.avg_price)}Р.
+                {Math.trunc(rs.avg_price || 0.0)}Р.
             </Typography>
         </Paper>
 
