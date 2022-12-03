@@ -25,10 +25,11 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import AssessmentIcon from '@mui/icons-material/Assessment';
-import {Stack, Tab, Tabs, TextField} from "@mui/material";
+import {Button, Grid, Stack, Tab, Tabs, TextField} from "@mui/material";
 import axios from "axios";
 import Links from "../../Links";
 import FoodSearchResultsView from "./FoodSearchResultsView";
+import {useFormik} from "formik";
 
 const drawerWidth = 240;
 
@@ -139,8 +140,21 @@ function DashboardContent() {
 
     const [currentTab, setCurrentTab] = useState(0)
 
+    const formik = useFormik({
+        initialValues: {
+            search: null,
+            amount: 10
+        }, onSubmit: (values, {setSubmitting}) => {
+            axios.get(Links.searchFood(values.search, values.amount)).then(rs => {
+                setSubmitting(false)
+                setRsByRestaurant(rs.data["by_restaurant"])
+                setRsByShop(rs.data["by_shop"])
+            })
+        }
+    })
+
     useEffect(() => {
-        axios.get(Links.searchFood("цезарь")).then(rs => {
+        axios.get(Links.searchFood("цезарь", 5)).then(rs => {
             setRsByRestaurant(rs.data["by_restaurant"])
             setRsByShop(rs.data["by_shop"])
         })
@@ -260,7 +274,22 @@ function DashboardContent() {
                     <Toolbar/>
                     <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
                         <Stack spacing={2}>
-                            <TextField label={"Поиск"} variant={"standard"}/>
+                            <form onSubmit={formik.handleSubmit}>
+                                <Stack spacing={1}>
+                                    <TextField label={"Поиск"} name={"search"} onChange={formik.handleChange}/>
+                                    <TextField label={"Макс. результатов по категории"} name={"amount"} onChange={formik.handleChange}/>
+                                    <Button type={"submit"} variant={"contained"}>Поиск</Button>
+                                </Stack>
+                            </form>
+                            <Grid container>
+                                <Grid item xs={10}>
+
+                                </Grid>
+                                <Grid item xs={2}>
+
+                                </Grid>
+                            </Grid>
+
                             <Tabs value={currentTab} onChange={(e, i) => setCurrentTab(i)}>
                                 <Tab label={"Результаты по ресторанам"} {...a11yProps(0)}/>
                                 <Tab label={"Результаты по магазинам"} {...a11yProps(1)}/>

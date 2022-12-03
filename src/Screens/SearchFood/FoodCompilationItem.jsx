@@ -20,9 +20,11 @@ export default ({v}) => {
                 <Typography variant="body2" color="text.secondary">
                     {v.restaurant_name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {v.rating}/5
-                </Typography>
+                {v.rating &&
+                    <Typography variant="body2" color="text.secondary">
+                        {v.rating}/5
+                    </Typography>
+                }
                 <Typography variant="body2" color="text.secondary">
                     {v.weight}г.
                 </Typography>

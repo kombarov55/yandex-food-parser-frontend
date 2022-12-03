@@ -11,6 +11,21 @@ import HighlightedRestaurant from "./HighlightedRestaurant";
 
 export default ({rs}) => {
     return <>
+        <Paper
+            sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                height: 240,
+                maxWidth: 360
+            }}
+        >
+            <Title>Средняя цена</Title>
+            <Typography component="p" variant="h4">
+                {Math.trunc(rs.avg_price)}Р.
+            </Typography>
+        </Paper>
+
         <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
             <Stack>
                 <Title>Самая низкая цена</Title>
