@@ -21,8 +21,12 @@ export default ({v}) => {
                     {v.restaurant_name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
+                    {v.rating}/5
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
                     {v.weight}г.
                 </Typography>
+
             </CardContent>
         </Card>
     </>
