@@ -14,7 +14,7 @@ export default ({title, v}) => {
                        image={v.src}
             />
             <CardContent>
-                <Link variant="button" color={"primary.main"} href={v.link}>
+                <Link variant="button" color={"primary.main"} href={v.href}>
                     {v.name}
                 </Link>
                 <Typography gutterBottom variant="body2" component="div">

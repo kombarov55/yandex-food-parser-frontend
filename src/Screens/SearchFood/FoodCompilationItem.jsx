@@ -5,14 +5,14 @@ import Link from "@mui/material/Link";
 
 export default ({v}) => {
     return <>
-        <Card sx={{maxWidth: 345}}>
+        <Card sx={{width: 345}}>
             <CardMedia component={"img"}
                        height={140}
                        image={v.src}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    {v.price}
+                    {v.price}Р
                 </Typography>
                 <Link variant="button" color={"primary.main"} href={v.link}>
                     {v.name}
@@ -21,7 +21,7 @@ export default ({v}) => {
                     {v.restaurant_name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {v.weight}
+                    {v.weight}г.
                 </Typography>
             </CardContent>
         </Card>

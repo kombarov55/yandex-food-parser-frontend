@@ -140,7 +140,7 @@ function DashboardContent() {
     const [currentTab, setCurrentTab] = useState(0)
 
     useEffect(() => {
-        axios.get(Links.searchFood("томям")).then(rs => {
+        axios.get(Links.searchFood("цезарь")).then(rs => {
             setRsByRestaurant(rs.data["by_restaurant"])
             setRsByShop(rs.data["by_shop"])
         })

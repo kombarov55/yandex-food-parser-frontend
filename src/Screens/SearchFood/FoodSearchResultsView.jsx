@@ -35,7 +35,7 @@ export default ({rs}) => {
             <Stack>
                 <Title>Самая большая порция</Title>
                 <Stack spacing={2} direction={"row"}>
-                    {rs["lowest_price_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
+                    {rs["biggest_weight_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
                 </Stack>
             </Stack>
         </Paper>
