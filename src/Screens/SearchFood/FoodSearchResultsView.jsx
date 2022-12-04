@@ -16,14 +16,15 @@ export default ({rs}) => {
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
-                height: 240,
                 maxWidth: 360
             }}
         >
-            <Title>Средняя цена</Title>
-            <Typography component="p" variant="h4">
-                {Math.trunc(rs.avg_price || 0.0)}Р.
+            <Typography component="p" variant="h6">
+                Средняя цена: {Math.trunc(rs["summary"]["avg_price"] || 0.0)}Р.
             </Typography>
+            {/*<Typography component="p" variant="body1">*/}
+            {/*    Найдено {rs["summary"]["items_found"]} результатов по Москве*/}
+            {/*</Typography>*/}
         </Paper>
 
         <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
