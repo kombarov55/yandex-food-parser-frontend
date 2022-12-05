@@ -20,6 +20,7 @@ import '@fontsource/roboto/700.css';
 import SearchFoodScreen from "./Screens/SearchFood/SearchFoodScreen";
 import Dashboard from "./ExampleProjects/Dashboard/Dashboard";
 import {YMaps} from "react-yandex-maps";
+import CompilationScreen from "./Screens/Compilation/CompilationScreen";
 
 const rootElement = document.getElementById("root");
 
@@ -34,6 +35,7 @@ render(
                 <Route path={"/register"} element={<RegisterScreen/>}/>
                 <Route path={"/xlsx"} element={<XlsxScreen/>}/>
                 <Route path={"/search-food"} element={<SearchFoodScreen/>}/>
+                <Route path={"/compilations"} element={<CompilationScreen/>}/>
                 <Route path={"/example/dashboard"} element={<Dashboard/>}/>
             </Routes>
         </HashRouter>

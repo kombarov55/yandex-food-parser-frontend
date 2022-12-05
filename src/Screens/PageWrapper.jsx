@@ -135,11 +135,11 @@ export default ({title, children}) => {
                     <Divider/>
                     <List component="nav">
                         <>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => navigate("/search-food")}>
                                 <ListItemIcon><FastfoodIcon/></ListItemIcon>
                                 <ListItemText primary="Поиск"/>
                             </ListItemButton>
-                            <ListItemButton>
+                            <ListItemButton onClick={() => navigate("/compilations")}>
                                 <ListItemIcon><BookmarksIcon/></ListItemIcon>
                                 <ListItemText primary="Свои подборки"/>
                             </ListItemButton>
