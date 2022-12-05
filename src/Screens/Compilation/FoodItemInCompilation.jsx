@@ -1,36 +1,22 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import {Card, CardActions, CardContent, CardMedia, MenuItem, Select, TextField} from "@mui/material";
+import {Card, CardActions, CardContent, CardMedia} from "@mui/material";
 import Link from "@mui/material/Link";
 import IconButton from "@mui/material/IconButton";
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-import {useState} from "react";
+import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default ({v, isFav, onAdd, onRemove, showFav = true}) => {
-    const [fav, setFav] = useState(isFav)
-
-    function handleFavClick() {
-        const newValue = !fav
-
-        setFav(newValue)
-
-        if (newValue) {
-            onAdd()
-        } else {
-            onRemove()
-        }
-    }
-
+export default ({v, onRemove, onMove}) => {
     return <>
         <Card sx={{width: 200, height: 500}}>
-            {showFav &&
-                <CardActions disableSpacing>
-                    <IconButton onClick={() => handleFavClick()}>
-                        {fav ? <BookmarkIcon/> : <BookmarkBorderOutlinedIcon/>}
-                    </IconButton>
-                </CardActions>
-            }
+            <CardActions disableSpacing>
+                <IconButton onClick={() => onRemove()}>
+                    <DeleteIcon/>
+                </IconButton>
+                <IconButton onClick={() => onMove()}>
+                    <DriveFileMoveIcon/>
+                </IconButton>
+            </CardActions>
 
             <CardMedia component={"img"}
                        maxHeight={140}
