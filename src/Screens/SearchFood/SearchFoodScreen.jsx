@@ -1,13 +1,16 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Button, CircularProgress, Stack, Tab, Tabs, TextField} from "@mui/material";
 import axios from "axios";
 import Links from "../../Links";
 import FoodSearchResultsView from "./FoodSearchResultsView";
 import {useFormik} from "formik";
 import PageWrapper from "../PageWrapper";
+import {useNavigate} from "react-router-dom";
+import CookieUtil from "../../Util/CookieUtil";
 
 export default ({}) => {
+    const navigate = useNavigate()
 
     const [rsByRestaurant, setRsByRestaurant] = useState({})
     const [rsByShop, setRsByShop] = useState({})
@@ -34,6 +37,19 @@ export default ({}) => {
             'aria-controls': `simple-tabpanel-${index}`,
         };
     }
+
+    useEffect(() => {
+        const email = CookieUtil.get("auth")
+        if (email == null) {
+            navigate("/login")
+        }
+
+        axios.get(Links.searchFood("том-ям", 5, email)).then(rs => {
+            setRsByRestaurant(rs.data["by_restaurant"])
+            setRsByShop(rs.data["by_shop"])
+            setDidRequestSomething(true)
+        })
+    }, [])
 
     const formik = useFormik({
         initialValues: {

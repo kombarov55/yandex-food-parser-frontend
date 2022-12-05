@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -10,12 +11,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useFormik} from "formik";
-import {Button, FormLabel} from "@mui/material";
+import {Button} from "@mui/material";
 import SyncIcon from '@mui/icons-material/Sync';
 import axios from "axios";
 import Links from "../../Links";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
 import TestEmail from "../../Util/TestEmail";
 
 const theme = createTheme();
@@ -34,7 +34,7 @@ export default ({}) => {
                 setIsAuthFailed(false)
                 setSubmitting(false)
                 if (rs.data.success) {
-                    const email = <rs className="data email"></rs>
+                    const email = rs.data.email
                     document.cookie = `auth=${email}`
                     navigate("/search-food")
                 } else {

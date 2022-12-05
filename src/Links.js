@@ -1,5 +1,5 @@
-// const rootUrl = "https://novemis.ru:8000"
-const rootUrl = "http://localhost:8000"
+const rootUrl = "https://novemis.ru:8000"
+// const rootUrl = "http://localhost:8000"
 
 
 export default {
@@ -9,5 +9,7 @@ export default {
     register: `${rootUrl}/account`,
     login: `${rootUrl}/account/login`,
     restorePassword: email => `${rootUrl}/account/restore_pwd/${email}`,
-    searchFood: (foodName, amount) => `${rootUrl}/search_food/${foodName}/${amount}`
+    searchFood: (foodName, amount, email) => `${rootUrl}/search_food/${foodName}/${amount}/${email}`,
+    addCompilationItem: (foodId, email) => `${rootUrl}/account/${email}/compilation/${foodId}`,
+    removeCompilationItem: (foodId, email, name = "Избранное") => `${rootUrl}/account/${email}/compilation/${name}/${foodId}`
 }

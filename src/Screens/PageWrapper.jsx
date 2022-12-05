@@ -143,13 +143,9 @@ export default ({title, children}) => {
                                 <ListItemIcon><BookmarksIcon/></ListItemIcon>
                                 <ListItemText primary="Свои подборки"/>
                             </ListItemButton>
-                            <ListItemButton>
-                                <ListItemIcon><CalculateIcon/></ListItemIcon>
-                                <ListItemText primary="Счетчик калорий"/>
-                            </ListItemButton>
                         </>
                         <Divider sx={{my: 1}}/>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => navigate("/xlsx")}>
                             <ListItemIcon><AssessmentIcon/></ListItemIcon>
                             <ListItemText primary="Выгрузка xlsx"/>
                         </ListItemButton>

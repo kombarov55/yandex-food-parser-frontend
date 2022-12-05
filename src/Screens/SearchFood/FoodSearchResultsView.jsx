@@ -1,15 +1,40 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import {Stack} from "@mui/material";
+import {Snackbar, Stack} from "@mui/material";
 import Title from "../../ExampleProjects/Dashboard/Title";
 import FoodCompilationItem from "./FoodCompilationItem";
 import {Bar, BarChart, Legend, Tooltip, XAxis, YAxis} from "recharts";
 import {Map} from "react-yandex-maps";
 import RestaurantPlacemark from "./RestaurantPlacemark";
 import HighlightedRestaurant from "./HighlightedRestaurant";
+import {useState} from "react";
+import axios from "axios";
+import CookieUtil from "../../Util/CookieUtil";
+import Links from "../../Links";
 
 export default ({rs}) => {
+    const [showSnackbar, setShowSnackbar] = useState(false)
+    const [snackbarText, setSnackbarText] = useState("")
+
+    const email = CookieUtil.get("auth")
+
+    console.log(email)
+
+    function onAddFavorite(v) {
+        axios.post(Links.addCompilationItem(v.id, email)).then(rs => {
+            setShowSnackbar(true)
+            setSnackbarText("Добавлено в избранное")
+        })
+    }
+
+    function onRemoveFavorite(v) {
+        axios.delete(Links.removeCompilationItem(v.id, email)).then(rs => {
+            setShowSnackbar(true)
+            setSnackbarText("Удалено из избранного")
+        })
+    }
+
     return <>
         <Paper
             sx={{
@@ -22,16 +47,19 @@ export default ({rs}) => {
             <Typography component="p" variant="h6">
                 Средняя цена: {Math.trunc(rs["summary"]["avg_price"] || 0.0)}Р.
             </Typography>
-            {/*<Typography component="p" variant="body1">*/}
-            {/*    Найдено {rs["summary"]["items_found"]} результатов по Москве*/}
-            {/*</Typography>*/}
         </Paper>
 
         <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
             <Stack>
                 <Title>Самая низкая цена</Title>
                 <Stack spacing={2} direction={"row"}>
-                    {rs["lowest_price_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
+                    {rs["lowest_price_food_list"]?.map(v =>
+                        <FoodCompilationItem v={v}
+                                             key={v.id}
+                                             isFav={rs.favorite_food_item_ids.find(id => v.id == id)}
+                                             onAdd={() => onAddFavorite(v)}
+                                             onRemove={() => onRemoveFavorite(v)}
+                        />)}
                 </Stack>
             </Stack>
         </Paper>
@@ -87,5 +115,10 @@ export default ({rs}) => {
                 {rs["best_choice_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
             </Stack>
         </Paper>
+        <Snackbar open={showSnackbar}
+                  message={snackbarText}
+                  autoHideDuration={600}
+                  onClose={() => setShowSnackbar(false)}
+        />
     </>
 }
