@@ -19,8 +19,6 @@ export default ({rs}) => {
 
     const email = CookieUtil.get("auth")
 
-    console.log(email)
-
     function onAddFavorite(v) {
         axios.post(Links.addCompilationItem(v.id, email)).then(rs => {
             setShowSnackbar(true)
