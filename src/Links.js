@@ -11,5 +11,6 @@ export default {
     restorePassword: email => `${rootUrl}/account/restore_pwd/${email}`,
     searchFood: (foodName, amount, email) => `${rootUrl}/search_food/${foodName}/${amount}/${email}`,
     addCompilationItem: (foodId, email) => `${rootUrl}/account/${email}/compilation/${foodId}`,
-    removeCompilationItem: (foodId, email, name = "Избранное") => `${rootUrl}/account/${email}/compilation/${name}/${foodId}`
+    removeCompilationItem: (foodId, email, name = "Избранное") => `${rootUrl}/account/${email}/compilation/${name}/${foodId}`,
+    getAllCompilations: (email) => `${rootUrl}/account/${email}/compilation`
 }

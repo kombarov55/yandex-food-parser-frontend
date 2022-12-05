@@ -7,7 +7,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import {useState} from "react";
 
-export default ({v, isFav, onAdd, onRemove}) => {
+export default ({v, isFav, onAdd, onRemove, showFav = true}) => {
     const [fav, setFav] = useState(isFav)
 
     function handleFavClick() {
@@ -23,12 +23,15 @@ export default ({v, isFav, onAdd, onRemove}) => {
     }
 
     return <>
-        <Card sx={{width: 345}}>
-            <CardActions disableSpacing>
-                <IconButton onClick={() => handleFavClick()}>
-                    {fav ? <BookmarkIcon/> : <BookmarkBorderOutlinedIcon/>}
-                </IconButton>
-            </CardActions>
+        <Card sx={{width: 200, height: 500}}>
+            {showFav &&
+                <CardActions disableSpacing>
+                    <IconButton onClick={() => handleFavClick()}>
+                        {fav ? <BookmarkIcon/> : <BookmarkBorderOutlinedIcon/>}
+                    </IconButton>
+                </CardActions>
+            }
+
             <CardMedia component={"img"}
                        maxHeight={140}
                        image={v.src}
