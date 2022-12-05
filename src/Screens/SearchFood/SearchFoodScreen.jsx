@@ -43,12 +43,6 @@ export default ({}) => {
         if (email == null) {
             navigate("/login")
         }
-
-        axios.get(Links.searchFood("цезарь", 5, email)).then(rs => {
-            setRsByRestaurant(rs.data["by_restaurant"])
-            setRsByShop(rs.data["by_shop"])
-            setDidRequestSomething(true)
-        })
     }, [])
 
     const formik = useFormik({
