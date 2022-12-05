@@ -44,7 +44,7 @@ export default ({}) => {
             navigate("/login")
         }
 
-        axios.get(Links.searchFood("том-ям", 5, email)).then(rs => {
+        axios.get(Links.searchFood("цезарь", 5, email)).then(rs => {
             setRsByRestaurant(rs.data["by_restaurant"])
             setRsByShop(rs.data["by_shop"])
             setDidRequestSomething(true)
