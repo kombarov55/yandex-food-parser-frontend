@@ -69,7 +69,13 @@ export default ({rs}) => {
             <Stack>
                 <Title>Самая высокая цена</Title>
                 <Stack spacing={2} direction={"row"}>
-                    {rs["highest_price_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
+                    {rs["highest_price_food_list"]?.map(v =>
+                        <FoodCompilationItem v={v}
+                                             key={v.id}
+                                             isFav={rs.favorite_food_item_ids.find(id => v.id == id)}
+                                             onAdd={() => onAddFavorite(v)}
+                                             onRemove={() => onRemoveFavorite(v)}
+                        />)}
                 </Stack>
             </Stack>
         </Paper>
@@ -79,7 +85,13 @@ export default ({rs}) => {
             <Stack>
                 <Title>Самая большая порция</Title>
                 <Stack spacing={2} direction={"row"}>
-                    {rs["biggest_weight_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
+                    {rs["biggest_weight_food_list"]?.map(v =>
+                        <FoodCompilationItem v={v}
+                                             key={v.id}
+                                             isFav={rs.favorite_food_item_ids.find(id => v.id == id)}
+                                             onAdd={() => onAddFavorite(v)}
+                                             onRemove={() => onRemoveFavorite(v)}
+                        />)}
                 </Stack>
             </Stack>
         </Paper>
@@ -112,7 +124,13 @@ export default ({rs}) => {
             <Typography variant="h7">Самая низкая цена + самая большая граммовка + самый выский рейтинг с самым большим
                 количеством отзывов</Typography>
             <Stack spacing={2} direction={"row"}>
-                {rs["best_choice_food_list"]?.map(v => <FoodCompilationItem v={v}/>)}
+                {rs["best_choice_food_list"]?.map(v =>
+                    <FoodCompilationItem v={v}
+                                         key={v.id}
+                                         isFav={rs.favorite_food_item_ids.find(id => v.id == id)}
+                                         onAdd={() => onAddFavorite(v)}
+                                         onRemove={() => onRemoveFavorite(v)}
+                    />)}
             </Stack>
         </Paper>
         <Snackbar open={showSnackbar}
