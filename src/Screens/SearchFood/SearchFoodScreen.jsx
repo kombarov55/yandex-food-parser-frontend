@@ -8,6 +8,7 @@ import {useFormik} from "formik";
 import PageWrapper from "../PageWrapper";
 import {useNavigate} from "react-router-dom";
 import CookieUtil from "../../Util/CookieUtil";
+import Data from "../../Data";
 
 export default ({}) => {
     const navigate = useNavigate()
@@ -39,10 +40,13 @@ export default ({}) => {
     }
 
     useEffect(() => {
-        const email = CookieUtil.get("auth")
-        if (email == null) {
-            navigate("/login")
-        }
+//        const email = CookieUtil.get("auth")
+//        if (email == null) {
+//            navigate("/login")
+//        }
+		setRsByRestaurant(Data);
+		setRsByShop(Data);
+		setDidRequestSomething(true);
     }, [])
 
     const formik = useFormik({
